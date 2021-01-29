@@ -12,62 +12,23 @@ Analyze the district-wide standardized test results. There are two spreadsheets:
 schools: includes an ID for each school, the school name, the type of school, the size and budget. 
 students: includes an ID for each student, the student name, gender, grade, the school name, reading and math scores. 
 
+### Set up
+The first thing done in this script was to import the pandas library. Then both of the csv files were read and stored as dataframes. The two dataframes were merged on school name to set up the rest of the work. This combined dataframe is the core dataframe used throughout this script. 
+
 ### District Summary
-* Create a high level snapshot (in table form) of the district's key metrics, including:
-  * Total Schools
-  * Total Students
-  * Total Budget
-  * Average Math Score
-  * Average Reading Score
-  * % Passing Math (The percentage of students that passed math.)
-  * % Passing Reading (The percentage of students that passed reading.)
-  * % Overall Passing (The percentage of students that passed math **and** reading.)
+To complete the summary total students, average math score, average reading score, total budget, and total schools was then set using either the .count, .mean, or .sum functions. The number of students passing the different subjects was set using the .loc function.
 
 ### School Summary
-* Create an overview table that summarizes key metrics about each school, including:
-  * School Name
-  * School Type
-  * Total Students
-  * Total School Budget
-  * Per Student Budget
-  * Average Math Score
-  * Average Reading Score
-  * % Passing Math (The percentage of students that passed math.)
-  * % Passing Reading (The percentage of students that passed reading.)
-  * % Overall Passing (The percentage of students that passed math **and** reading.)
+To complete the summary for each school three new columns were added to the combined dataframe: students passing math, reading, and both subjects. The .loc function was used to complete this task. Next the schools were grouped and summed to create the by-school-summary. A new dataframe was set with a limited number of columns and then the dataframe with number of students passing and the by school summary was merged. Then a series of columns were added to get the budget per student, the average scores by number of students, and the percent of students passing by school. 
 
-### Top Performing Schools (By % Overall Passing)
-* Create a table that highlights the top 5 performing schools based on % Overall Passing. Include:
-  * School Name
-  * School Type
-  * Total Students
-  * Total School Budget
-  * Per Student Budget
-  * Average Math Score
-  * Average Reading Score
-  * % Passing Math (The percentage of students that passed math.)
-  * % Passing Reading (The percentage of students that passed reading.)
-  * % Overall Passing (The percentage of students that passed math **and** reading.)
+### Top and Bottom Performing Schools (By % Overall Passing)
+The dataframe developed for the school summary was then sorted using the sort_values function. To get the best schools ascending was set to false. To get the worst schools ascending was set to true. To see only ten schools the dataframe was set to .head(5)
 
-### Bottom Performing Schools (By % Overall Passing)
-* Create a table that highlights the bottom 5 performing schools based on % Overall Passing. Include all of the same metrics as above.
+### Math Scores and Reading by Grade
+To complete these summaries the .loc function was made to create a series of scores for both math and reading based on grade. These were merged together and then grouped. The .mean function was used to come up with the average scores by school by grade. 
 
-### Math Scores by Grade
-* Create a table that lists the average Math Score for students of each grade level (9th, 10th, 11th, 12th) at each school.
-
-### Reading Scores by Grade
-* Create a table that lists the average Reading Score for students of each grade level (9th, 10th, 11th, 12th) at each school.
-
-### Scores by School Spending
-* Create a table that breaks down school performances based on average Spending Ranges (per student). Use 4 reasonable bins to group school spending. Include in the table each of the following:
-  * Average Math Score
-  * Average Reading Score
-  * % Passing Math (The percentage of students that passed math.)
-  * % Passing Reading (The percentage of students that passed reading.)
-  * % Overall Passing (The percentage of students that passed math **and** reading.)
-
-### Scores by School Size
-* Repeat the above breakdown, but this time group schools based on a reasonable approximation of school size (Small, Medium, Large).
+### Scores by School Spending and School Size
+The dataframe created for the school summary was used. Only a few columns were needed for this summary so a new dataframe was set to be used for these two summaries. The bins for both were set up followed by the labels. Then new columns were generated and added to the dataframe for these summaries. Before each was printed out the dataframe was shortened to only show the relevant colunns and a groupby was done based on the new columns made by the pd.cut function. 
 
 ### Scores by School Type
-* Repeat the above breakdown, but this time group schools based on school type (Charter vs. District).
+This was a simple groupby table using the .mean() function based on school type. 
